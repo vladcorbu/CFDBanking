@@ -1,0 +1,15 @@
+.jumbotrons {
+    margin-top: 200px;
+}
+
+.slide {
+    margin-top: 150px;
+}
+
+.carusel {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+

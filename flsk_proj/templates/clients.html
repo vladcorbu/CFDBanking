@@ -1,0 +1,48 @@
+{% extends 'template_admin.html' %}
+{% block title %}Clients page{% endblock %}
+{% block content %}
+    <link href="assets/css/table.css" rel="stylesheet">
+    <form action="{{ url_for('clients') }}" method="post">
+    <div class="container" style="margin-top: 200px">
+        <div class="row">
+        <div class="col-md-12">
+            <table class="container_table">
+                <thead>
+                    <tr>
+                        {% for field in client_fields[1:] %}
+                        <th>
+                            <h1>{{ field }}</h1>
+                            <input type="text" class="form-control" placeholder="Search" aria-label="Search" aria-describedby="basic-addon1" name="{{ field }}">
+                        </th>
+                        {% endfor %}
+                        <th>
+                            <button type="submit" class="btn btn-large btn-outline-light" name="search_button" value="pressed">Search</button>
+                        </th>
+                        <th>
+                            <button type="submit" class="btn btn-large btn-outline-light" name="add_client_button" value="pressed">Add Client</button>
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for row in select_results.tblClient %}
+                    <tr>
+                        <td>{{ row.Nume_Prenume }}</td>
+                        <td>{{ row.Telefon }}</td>
+                        <td>{{ row.sursa_venit }}</td>
+                        <td>{{ row.CNP }}</td>
+                        <td>{{ row.serie_nr_buletin }}</td>
+                        <td><button type="submit" class="btn btn-outline-success" style="font-size: small" name="to_client" value="{{ row.client_id }}">Go to Client</button></td>
+                        <td><button type="submit" class="btn btn-outline-success" style="font-size: small" name="update_client" value="{{ row.client_id }}">Update Client</button></td>
+                        <td><button type="submit" class="btn btn-outline-danger" style="font-size: small" name="delete" value="{{ row.client_id }}">Remove</button></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+         </div>
+        </div>
+    </div>
+    </form>
+{% endblock %}

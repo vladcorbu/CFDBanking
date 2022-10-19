@@ -1,0 +1,151 @@
+{% extends 'template_admin.html' %}
+{% block title %}Client details{% endblock %}
+{% block content %}
+    <link href="assets/css/table.css" rel="stylesheet">
+    <form action="{{ url_for('client_details') }}" method="post">
+    <div class="container" style="margin-top: 200px">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="cnt_bnc-tab" data-bs-toggle="pill" data-bs-target="#cnt_bnc" type="button" role="tab" aria-controls="cnt_bnc" aria-selected="true">Conturi bancare</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="carduri-tab" data-bs-toggle="pill" data-bs-target="#carduri" type="button" role="tab" aria-controls="carduri" aria-selected="false">Carduri de credit</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                       <button class="nav-link" id="tranzactii-tab" data-bs-toggle="pill" data-bs-target="#tranzactii" type="button" role="tab" aria-controls="tranzactii" aria-selected="false">Tranzactii</button>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="cnt_bnc" role="tabpanel" aria-labelledby="cnt_bnc-tab"><br>
+                        <table class="container_table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <h1>IBAN</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Limita tranzactionare</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Moneda</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Sold</h1>
+                                    </th>
+                                    <th>
+                                        <button type="submit" class="btn btn-large btn-outline-light" name="add_bank_account_button" value="pressed">Add Bank Account</button>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for accounts in all_client_details.bank_account %}
+                                <tr>
+                                    <td>{{ accounts.IBAN }}</td>
+                                    <td>{{ accounts.limita_tranzactionare }}</td>
+                                    <td>{{ accounts.in_moneda}}</td>
+                                    <td>{{  accounts.sold }}</td>
+                                    <td><button type="submit" class="btn btn-outline-danger" style="font-size: small" name="delete_account" value="{{ accounts.contbnc_id }}">Remove</button></td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="tab-pane fade" id="carduri" role="tabpanel" aria-labelledby="carduri-tab"><br>
+                        <table class="container_table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <h1>IBAN</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Numar card</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Data expirarii</h1>
+                                    </th>
+                                    <th>
+                                        <h1>CVV</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Tip Card</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Sold</h1>
+                                    </th>
+                                     <th>
+                                        <button type="submit" class="btn btn-large btn-outline-light" name="add_credit_card_button" value="pressed">Add Credit Card</button>
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for cards in all_client_details.credit_card %}
+                                <tr>
+                                    <td>{{ cards.IBAN }}</td>
+                                    <td>{{ cards.nr_card }}</td>
+                                    <td>{{ cards.data_expirarii}}</td>
+                                    <td>{{ cards.CVV }}</td>
+                                    <td>{{ cards.tip_card }}</td>
+                                    <td>{{ cards.sold }}</td>
+                                <td><button type="submit" class="btn btn-outline-danger" style="font-size: small" name="delete_card" value="{{ cards.card_id }}">Remove</button></td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="tab-pane fade" id="tranzactii" role="tabpanel" aria-labelledby="tranzactii-tab"><br>
+                        <table class="container_table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <h1>Numar card</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Data tranzactie</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Destinatar</h1>
+                                    </th>
+                                    <th>
+                                        <h1>suma</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Plata la</h1>
+                                    </th>
+                                    <th>
+                                        <h1>Status tranzactie</h1>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for transactions in all_client_details.transactions %}
+                                <tr>
+                                    <td>{{ transactions.nr_card }}</td>
+                                    <td>{{ transactions.data_tranzactie }}</td>
+                                    <td>{{ transactions.destinatar}}</td>
+                                    <td>{{ transactions.suma }}</td>
+                                    <td>{{ transactions.plata_la }}</td>
+                                    <td>{{ transactions.status_tranzactie }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
